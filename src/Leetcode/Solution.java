@@ -25,22 +25,22 @@ class Solution {
     
     public int largest1BorderedSquare(int[][] grid) {
         
-    	// O(n^6) runtime :o
+    	// O(n^6) runtime :o xD
     	
     	int max_ = 0;
     	// O(n^2)
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[i].length; j++){
                 if(grid[i][j] == 1){
-                    int right = dfsRight(grid, i, j, 1); 
+                    int right = dfsRight(grid, i, j); 
                     if(right >= 1) {
                     	// O(n^4)
                     	while(right >= 1) {
-                    		int down = dfsDown(grid, i, j + right - 1, 1); 
+                    		int down = dfsDown(grid, i, j + right - 1); 
                     		while(down >= 1) {
-                    			int left = dfsLeft(grid, i + down - 1, j + right - 1, 1);
+                    			int left = dfsLeft(grid, i + down - 1, j + right - 1);
                     			while(left >= 1) {
-                        			int up = dfsUp(grid, i + down - 1, j + right - (left), 1); 
+                        			int up = dfsUp(grid, i + down - 1, j + right - (left)); 
                         			while(up >= 1) {
                             			//System.out.print(i + " " + j + " ");
                             			boolean isSquare = checkSquare(new int[]{right, down, left, up});
@@ -75,41 +75,37 @@ class Solution {
     };
     
     // O(n)
-    public int dfsRight(int[][] grid, int i, int j, int cum) {
+    public int dfsRight(int[][] grid, int i, int j) {
     	int x = 0;
     	if(j < grid[i].length && grid[i][j] == 1) {
-    		//grid[i][j] += cum;
-    		x += 1 + dfsRight(grid, i, j + 1, cum + 1);
+    		x += 1 + dfsRight(grid, i, j + 1);
     	}
     	return x;
     }
     
     // O(n)
-    public int dfsLeft(int[][] grid, int i, int j, int cum) {
+    public int dfsLeft(int[][] grid, int i, int j) {
     	int x = 0;
     	if(j >= 0 && grid[i][j] == 1) {
-    		//grid[i][j] += cum;
-    		x += 1 + dfsLeft(grid, i, j - 1, cum + 1);
+    		x += 1 + dfsLeft(grid, i, j - 1);
     	}
     	return x;
     }
     
     // O(n)
-    public int dfsDown(int[][] grid, int i, int j, int cum) {
+    public int dfsDown(int[][] grid, int i, int j) {
     	int x = 0;
     	if(i < grid.length && grid[i][j] == 1) {
-    		//grid[i][j] += cum;
-    		x += 1 + dfsDown(grid, i + 1, j, cum + 1);
+    		x += 1 + dfsDown(grid, i + 1, j);
     	}
     	return x;
     }
     
     // O(n)
-    public int dfsUp(int[][] grid, int i, int j, int cum) {
+    public int dfsUp(int[][] grid, int i, int j) {
     	int x = 0;
     	if(i >= 0 && grid[i][j] == 1) {
-    		//grid[i][j] += cum;
-    		x += 1 + dfsUp(grid, i - 1, j, cum + 1);
+    		x += 1 + dfsUp(grid, i - 1, j);
     	}
     	return x;
     }
