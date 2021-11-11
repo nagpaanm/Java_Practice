@@ -36,12 +36,24 @@ class Solution {
                     if(right >= 1) {
                     	// O(n^4)
                     	while(right >= 1) {
+                    		if(right <= max_) {
+                    			break;
+                    		}
                     		int down = dfsDown(grid, i, j + right - 1); 
                     		while(down >= 1) {
+                    			if(down <= max_) {
+                        			break;
+                        		}
                     			int left = dfsLeft(grid, i + down - 1, j + right - 1);
                     			while(left >= 1) {
+                    				if(left <= max_) {
+                            			break;
+                            		}
                         			int up = dfsUp(grid, i + down - 1, j + right - (left)); 
                         			while(up >= 1) {
+                        				if(up <= max_) {
+                                			break;
+                                		}
                             			//System.out.print(i + " " + j + " ");
                             			boolean isSquare = checkSquare(new int[]{right, down, left, up});
                             			if(up > max_ && isSquare == true) {
