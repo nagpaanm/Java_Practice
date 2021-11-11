@@ -37,6 +37,8 @@ public class Main {
 	public static int partition(List<Integer> arr, int l, int r) {
 		/*
 		 * Partition method for quicksort.
+		 * 
+		 * Make the pivot the last element.
 		 */
 		int pivot = arr.get(r);
 		int i = l - 1;

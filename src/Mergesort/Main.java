@@ -10,17 +10,12 @@ public class Main {
 	 * *Fastest sorting algorithm*
 	 */
 	public static void main(String[] args) {
-		List<Integer> arr = Arrays.asList(1,4,2,6,8,5,3,7);
-
-	}
-	
-	public static void mergesort(List<Integer> arr) {
-		int n = arr.size();
-		if(n < 2) {
-			return;
+		int[] arr = {1,4,2,6,8,5,3,7};
+		//static to call method without initializing
+		Mergesort.mergesort(arr);	
+		for(int i = 0; i < arr.length; i ++) {
+			System.out.print(arr[i] + ", ");
 		}
-		int mid = n / 2;
-		List<Integer> left =
 	}
 
 }
