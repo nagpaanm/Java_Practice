@@ -1,104 +1,116 @@
 package Leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+/*
+ * Solution for largest-1-bordered-square (Leetcode).
+ * 
+ * Algorithm:
+ * Iterate through the matrix and when a 1 is found perform a depth-first-search 
+ * to the right until a 1 no longer is found. Then, perform a dfs down until a
+ * 1 is no longer found. Then, perform a dfs to the left until a 1 is no longer
+ * found. Then, perform a dfs upwards until a 1 no longer is found. Keep track
+ * of the times dfs occures in all directions, and if these 4 values are equal
+ * then it is a square. If this value is larger then the current largest,
+ * make it the largest. 
+ * 
+ * If It is not a square, repeat the last step (dfs-up) but subtract 1. Check if 
+ * square and if largest. If not, subtract 1 again and rinse and repeat until
+ * 'up' >= 1;
+ * 
+ * Repeat the above step for left, down and right. All possible combinations
+ * will have been found and a guarenteed answer will come.
+ * 
+ * 
+ */
 class Solution {
-    public ArrayList<List<Integer>> visited = new ArrayList<List<Integer>>();
     
     public int largest1BorderedSquare(int[][] grid) {
-        /*
-        [1,1,1,1]
-        [0,1,1,1]
-        [1,1,1,0]
         
-        */
-        //return 0;
-        
-    	//O(n^2) runtime
-    	ArrayList<int[]> coordsList = new ArrayList<int[]>();
+    	// O(n^6) runtime :o
+    	
+    	int max_ = 0;
+    	// O(n^2)
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[i].length; j++){
                 if(grid[i][j] == 1){
-                    int max_ = dfsRight(grid, i, j + 1, 1);
-                    if(max_ > 1) {
-                        int[] coords = {max_, j + max_ - 1, i};
-                        // i.e. {4, 3, 0}
-                        coordsList.add(coords);
+                    int right = dfsRight(grid, i, j, 1); 
+                    if(right >= 1) {
+                    	// O(n^4)
+                    	while(right >= 1) {
+                    		int down = dfsDown(grid, i, j + right - 1, 1); 
+                    		while(down >= 1) {
+                    			int left = dfsLeft(grid, i + down - 1, j + right - 1, 1);
+                    			while(left >= 1) {
+                        			int up = dfsUp(grid, i + down - 1, j + right - (left), 1); 
+                        			while(up >= 1) {
+                            			//System.out.print(i + " " + j + " ");
+                            			boolean isSquare = checkSquare(new int[]{right, down, left, up});
+                            			if(up > max_ && isSquare == true) {
+                            				max_ = up;
+                            			}
+                            			up--;
+                        			}
+                        			left--;
+                    			}
+                    			down--;
+                    		}
+                   			right--;
+                    	}
                     }
                 }
             }
         }
-        int max_ = 1;
-        int yLength = grid.length;
-        for(int[] arr: coordsList) {
-        	int m = arr[0];
-        	int j = arr[1];
-        	int i = arr[2];
-        	if(i + m - 1 < yLength) {
-        		if(grid[i + m - 1][j] == m) {
-        			max_ = m;
-        		}
-    		}else {
-    			int c = 1;
-    			m--;
-    			while(m > 1) {
-    				if(i + m - 1 < yLength) {
-    					if(grid[i + m - 1][j - c] == m) {
-    						
-    						max_ = m;
-    						break;
-    					}
-    				}
-    				c++;
-    				m--;
-    			}
-        	}
-        }
-        return max_;
+        return max_ * max_;
     }
     
+    // O(n)
+    public boolean checkSquare(int[] arr) {
+    	for(int num: arr) {
+        	//System.out.print(num + ",");
+        	if(num != arr[0]) {
+        		return false;
+        	}
+    	}
+    	//System.out.println();
+    	return true;
+    };
+    
+    // O(n)
     public int dfsRight(int[][] grid, int i, int j, int cum) {
-    	int x = 1;
+    	int x = 0;
     	if(j < grid[i].length && grid[i][j] == 1) {
-    		grid[i][j] += cum;
-    		x += dfsRight(grid, i, j + 1, cum + 1);
+    		//grid[i][j] += cum;
+    		x += 1 + dfsRight(grid, i, j + 1, cum + 1);
     	}
     	return x;
     }
-
-    public void dfs(int[][] grid, int i, int j){
-        if((i >= grid.length || j >= grid[i].length) ||
-            (i < 0 || j < 0)){
-            return;
-        }
-        if(!exists(i,j)){
-        	if(grid[i][j] == 1) {
-            	System.out.println(i + " " + j);
-        	}
-            this.visited.add(Arrays.asList(i,j));
-            if(i < grid.length - 1){
-                dfs(grid, i + 1, j);
-            }
-            if(i > 0){
-                dfs(grid, i - 1, j);
-            }
-            if(j < grid[i].length - 1){
-                dfs(grid, i, j - 1);
-            }
-            if(j > 0){
-                dfs(grid, i, j + 1);
-            }
-        }
+    
+    // O(n)
+    public int dfsLeft(int[][] grid, int i, int j, int cum) {
+    	int x = 0;
+    	if(j >= 0 && grid[i][j] == 1) {
+    		//grid[i][j] += cum;
+    		x += 1 + dfsLeft(grid, i, j - 1, cum + 1);
+    	}
+    	return x;
     }
     
-    public boolean exists(int i, int j){
-        for(List<Integer> al: this.visited){
-            if(al.get(0) == i && al.get(1) == j){
-                return true;
-            }
-        }
-        return false;
+    // O(n)
+    public int dfsDown(int[][] grid, int i, int j, int cum) {
+    	int x = 0;
+    	if(i < grid.length && grid[i][j] == 1) {
+    		//grid[i][j] += cum;
+    		x += 1 + dfsDown(grid, i + 1, j, cum + 1);
+    	}
+    	return x;
+    }
+    
+    // O(n)
+    public int dfsUp(int[][] grid, int i, int j, int cum) {
+    	int x = 0;
+    	if(i >= 0 && grid[i][j] == 1) {
+    		//grid[i][j] += cum;
+    		x += 1 + dfsUp(grid, i - 1, j, cum + 1);
+    	}
+    	return x;
     }
 }
