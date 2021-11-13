@@ -1,29 +1,54 @@
 package kDigits;
 
+/*
+ * 
+ * k-digit solution - literally just scan through the string k times and remove
+ * the 'peak' - that is, the digit that is greater than the digit to it's immediate
+ * right.
+ */
 public class Solution {
 	public String removeKdigits(String num, int k) {
-        int n = num.length();
-        if(k >= n){
-            return "0";
-        }
-        int smallest = Integer.parseInt(num.substring(k, n));
-        //will remove leading 0 - which is perfect =)
-        for(int i = 0; i + k <= n; i++) {
-        	String right = num.substring(i + k, n);
-        	String left = "";
-        	for(int j = 0; j < i; j++) {
-        		left += num.charAt(j);
+		if(num.length() == k) {
+			return "0";
+		}
+		// O(n^2)
+        while(k > 0) {
+        	int n = num.length();
+        	int i = 0;
+        	// keep looping and incrementing i until we find the peak digit
+        	while(i + 1 < n) {
+        		if(num.charAt(i) > num.charAt(i + 1)) {
+        			break;
+        		}
+        		i++;
         	}
-        	if(left.length() == 0) {
-        		left = "0";
-        	}
-        	int val = Integer.parseInt(left + right);
-        	System.out.println(i + " " +val + " " + left + " " +right);
-        	if(val < smallest) {
-        		smallest = val;
-        	}
+        	// remove peak digit
+        	String left = num.substring(0,i);
+        	String right = num.substring(i + 1, n);
+        	num = left + right;
+        	k--;
         }
         
-        return Integer.toString(smallest);
+        int i = 0;
+        char z = '0'; // note: as to be single quotes *sighs*
+        // O(n) run time.
+        // must add the first condition below in case input is all zeros "i.e. 00000"
+        while(num.length() > 1 && num.charAt(0) == z) {
+        	num = num.substring(1);
+        }
+        return num;
     }
+	
+	/*
+	private void permutation(char[] perm, int pos, String str) {
+	    if (pos == perm.length) {
+	        System.out.println(new String(perm));
+	    } else {
+	        for (int i = 0 ; i < str.length() ; i++) {
+	            perm[pos] = str.charAt(i);
+	            permutation(perm, pos+1, str);
+	        }
+	    }
+	}
+	*/
 }
