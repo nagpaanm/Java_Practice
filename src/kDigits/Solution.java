@@ -28,7 +28,6 @@ public class Solution {
         	num = left + right;
         	k--;
         }
-        
         int i = 0;
         char z = '0'; // note: as to be single quotes *sighs*
         // O(n) run time.
