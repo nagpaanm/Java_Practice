@@ -2,6 +2,7 @@ package BalancedBrackets;
 
 
 // total runtime = O(n)
+// balanced brackets
 public class Main {
 
 	public static void main(String[] args) {
