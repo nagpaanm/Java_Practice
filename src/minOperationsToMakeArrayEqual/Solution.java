@@ -11,6 +11,9 @@ elements of the array can be made equal using some operations.
 Given an integer n, the length of the array. Return the minimum number of operations 
 needed to make all the elements of arr equal.
  */
+
+
+// or simply, a one liner solution: return (n * n) / 4;
 public class Solution {
 	public int minOperations(int n) {
         int difference = 0;
