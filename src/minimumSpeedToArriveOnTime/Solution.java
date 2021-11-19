@@ -26,9 +26,8 @@ public class Solution {
 	            return -1;
 	        }
 	        // O(n)
-	        int[] minMax = findMinMax(dist);
 	        int min = 1;
-	        int max = minMax[1] * 100; //because 2 decimal places allowed on hour
+	        int max = findMinMax(dist) * 100; //because 2 decimal places allowed on hour
 	        int left = 1;
 	        int right = max;
 	        
@@ -59,17 +58,14 @@ public class Solution {
 	        return min;
 	    }
 	    
-	    public int[] findMinMax(int[] dist){
+	 	// O(n)
+	    public int findMinMax(int[] dist){
 	        int max = 0;
-	        int min = 99999999;
 	        for(int num: dist){
 	            if(num > max){
 	                max = num;
 	            }
-	            if(num < min){
-	                min = num;
-	            }
 	        }
-	        return new int[]{min, max};
+	        return max;
 	    }
 }
