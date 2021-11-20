@@ -25,7 +25,21 @@ public class Solution {
             return null;
         }
         //else
-        
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow){
+                while(head != slow){
+                    head = head.next;
+                    slow = slow.next; 
+                }
+                return slow;
+            }
+        }
+        return null;
+        /*
         List<ListNode> arr = new ArrayList<ListNode>();
         arr.add(head);
         ListNode pointer = head;
@@ -41,5 +55,6 @@ public class Solution {
             }
         }
         return null;
+        */
     }
 }
