@@ -1,6 +1,10 @@
 package maximumWidthRamp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -14,6 +18,7 @@ If there is no ramp in nums, return 0.
 
 public class Solution {
 	public int maxWidthRamp(int[] nums) {
+		/*
 		Queue<int[]> queue = new LinkedList<int[]>();
 		Stack<int[]> stack = new Stack<int[]>();
 		int length = nums.length;
@@ -45,18 +50,36 @@ public class Solution {
 		}
 		
 		return maxRamp;
-		/*
+		*/
+		List<Integer> arr = new ArrayList<Integer>();
+		List<Integer> numsArr = new ArrayList<Integer>();
+		for(int num: nums) {
+			arr.add(num);
+			numsArr.add(num);
+		}
+		Collections.sort(arr);
+		
         int length = nums.length;
         int maxRamp = 0;
         int j = length - 1;
         while(0 < j){
-            for(int i = j - maxRamp - 1; i >= 0; i--){
-                if(nums[i] <= nums[j]){
-                    if(j - i > maxRamp){
-                        maxRamp = j - i;
-                    }
-                }
-            }
+        	int left = 0;
+        	int right = j;
+    		System.out.println("j = " + j);
+        	while(left <= right) {
+        		int mid = (left + right) / 2;
+        		System.out.println(mid + " " + arr.get(mid) + " " + nums[j]);
+        		if(arr.get(mid) <= nums[j]) {
+        			if(j - numsArr.indexOf(arr.get(mid)) > maxRamp) {
+        				maxRamp = j - numsArr.indexOf(arr.get(mid));
+        				System.out.println(maxRamp + "  " + j + " " + mid + " " + numsArr.indexOf(arr.get(mid)));
+            			right = mid - 1;
+        			}
+        			left = mid + 1;
+        		}else {
+        			left = mid + 1;
+        		}
+        	}
             
             j--;
             if(j < maxRamp){
@@ -65,6 +88,6 @@ public class Solution {
         }
     
         return maxRamp;
-        */
+        
     }
 }

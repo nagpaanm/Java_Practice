@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Solution sol = new Solution();
-		int[] nums = {9,8,1,0,1,9,4,0,4,1};
+		int[] nums = {6,0,8,2,1,5};
 		System.out.println(sol.maxWidthRamp(nums));
 	}
 
