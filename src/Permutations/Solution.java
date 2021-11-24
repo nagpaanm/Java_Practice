@@ -23,21 +23,21 @@ public class Solution {
 	Set<String> set = new HashSet<String>();
 	public String getHappyString(int n, int k) {
         String[] arr = {"a", "b", "c"};
-        permute(arr, n, 0, "");
+        permute(arr, n, 0, "", 0, n*n);
         System.out.println(set);
         return "";
     }
 	
-	public void permute(String[] arr, int n, int index, String str) {
+	public void permute(String[] arr, int n, int index, String str, int count, int amount) {
 		if(str.length() >= n) {
 			set.add(str);
 		}
-		else {
+		if(count <= amount) {
 			if(index >= arr.length) {
 				index = 0;
 			}
 			str += arr[index];
-			permute(arr, n, index + 1, str);
+			permute(arr, n, index + 1, str, count++, amount);
 		}
 	}
 }
