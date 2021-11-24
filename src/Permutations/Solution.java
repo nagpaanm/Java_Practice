@@ -1,5 +1,6 @@
 package Permutations;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ than k happy strings of length n.
  */
 public class Solution {
 
-	Set<String> set = new HashSet<String>();
+	ArrayList<String> set = new ArrayList<String>();
 	public String getHappyString(int n, int k) {
         String[] arr = {"a", "b", "c"};
         permute(arr, n, 0, "", 0, n*n);
@@ -31,13 +32,15 @@ public class Solution {
 	public void permute(String[] arr, int n, int index, String str, int count, int amount) {
 		if(str.length() >= n) {
 			set.add(str);
+			str = "";
+			index = set.size() % arr.length;
 		}
 		if(count <= amount) {
 			if(index >= arr.length) {
 				index = 0;
 			}
 			str += arr[index];
-			permute(arr, n, index + 1, str, count++, amount);
+			permute(arr, n, index + 1, str, count + 1, amount);
 		}
 	}
 }
