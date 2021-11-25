@@ -1,7 +1,9 @@
 package Permutations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -24,10 +26,29 @@ public class Solution {
 	ArrayList<String> set = new ArrayList<String>();
 	public String getHappyString(int n, int k) {
         String[] arr = {"a", "b", "c"};
-        permute(arr, n, 0, "", 0, Math.pow(n, n));
-        System.out.println(set);
+        ArrayList<String> array = new ArrayList<String>();
+        for(String s: arr) {
+        	array.add(s);
+        }
+        permute(array);
+        //System.out.println(set);
         return "";
     }
+	
+	
+	public ArrayList<String> permute(ArrayList<String> arr) {
+		if(arr.size() == 0) {
+			return null;
+		}
+		List<String> result = new ArrayList<String>();
+		for(int i = 0; i < arr.size(); i++) {
+			arr.remove(i);
+			for(String e: permute(arr)) {
+				result.add(arr.get(i) + e);
+			}
+		}
+		return (ArrayList<String>) result;
+	}
 	
 	public void permute(String[] arr, int n, int index, String str, int count, double amount) {
 		if(str.length() >= n) {
@@ -41,7 +62,7 @@ public class Solution {
 				index = 0;
 			}
 			str += arr[index];
-			permute(arr, n, index + 1, str, count, amount);
+			permute(arr, n, index, str, count, amount);
 		}
 	}
 }
