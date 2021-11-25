@@ -24,12 +24,12 @@ public class Solution {
 	ArrayList<String> set = new ArrayList<String>();
 	public String getHappyString(int n, int k) {
         String[] arr = {"a", "b", "c"};
-        permute(arr, n, 0, "", 0, n*n);
+        permute(arr, n, 0, "", 0, Math.pow(n, n));
         System.out.println(set);
         return "";
     }
 	
-	public void permute(String[] arr, int n, int index, String str, int count, int amount) {
+	public void permute(String[] arr, int n, int index, String str, int count, double amount) {
 		if(str.length() >= n) {
 			set.add(str);
 			str = "";
