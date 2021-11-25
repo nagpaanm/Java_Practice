@@ -34,13 +34,14 @@ public class Solution {
 			set.add(str);
 			str = "";
 			index = set.size() % arr.length;
+			count += 1;
 		}
-		if(count <= amount) {
+		if(count < amount) {
 			if(index >= arr.length) {
 				index = 0;
 			}
 			str += arr[index];
-			permute(arr, n, index + 1, str, count + 1, amount);
+			permute(arr, n, index + 1, str, count, amount);
 		}
 	}
 }
