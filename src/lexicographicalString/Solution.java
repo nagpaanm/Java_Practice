@@ -30,7 +30,7 @@ You will find the 9th string = "cab"
 
 public class Solution {
 	public String getHappyString(int n, int k) {
-        String[] set = {"a", "b", "c"};
+        char[] set = {'a', 'b', 'c'};
         String str = "";
         List<String> arr = new ArrayList<String>();
         permute(set, n, str, arr);
@@ -39,18 +39,16 @@ public class Solution {
         return str;
     }
 	
-	private void permute(String[] set, int n, String str, List<String> arr) {
+	private void permute(char[] set, int n, String str, List<String> arr) {
 		if(n == 0) {
 			arr.add(str);
-			System.out.println("full str: " + str);
 			return;
 		}
 		
 		for(int i = 0; i < set.length; i++) {
 			// make sure str is not empty and str[i] != s[i + 1]
-			if(str.equals("") || !String.valueOf(str.charAt(str.length() -1)).equals(set[i])) {
+			if(str.equals("") || str.charAt(str.length() -1) != set[i]) {
 				String pre = str + set[i];
-				System.out.println(pre);
 				permute(set, n - 1, pre, arr);
 			}
 		}
