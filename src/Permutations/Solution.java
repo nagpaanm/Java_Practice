@@ -6,63 +6,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/*
- * A happy string is a string that:
 
-- consists only of letters of the set ['a', 'b', 'c'].
-- s[i] != s[i + 1] for all values of i from 1 to s.length - 1 (string is 1-indexed).
-
-For example, strings "abc", "ac", "b" and "abcbabcbcb" are all happy strings and 
-strings "aa", "baa" and "ababbc" are not happy strings.
-
-Given two integers n and k, consider a list of all happy strings of length n 
-sorted in lexicographical order.
-
-Return the kth string of this list or return an empty string if there are less 
-than k happy strings of length n.
- */
 public class Solution {
 
-	ArrayList<String> set = new ArrayList<String>();
-	public String getHappyString(int n, int k) {
-        String[] arr = {"a", "b", "c"};
-        ArrayList<String> array = new ArrayList<String>();
-        for(String s: arr) {
-        	array.add(s);
-        }
-        permute(array);
-        //System.out.println(set);
-        return "";
+	public List<String> permutations(String[] set) {
+		int length = set.length;
+		String str = "";
+		List<String> arr = new ArrayList<String>();
+		permute(set, length, str, arr);
+		return arr;
     }
 	
-	
-	public ArrayList<String> permute(ArrayList<String> arr) {
-		if(arr.size() == 0) {
-			return null;
+	private void permute(String[] set, int length, String str, List<String> arr) {
+		if(length == 0) {
+			arr.add(str);
+			return;
 		}
-		List<String> result = new ArrayList<String>();
-		for(int i = 0; i < arr.size(); i++) {
-			arr.remove(i);
-			for(String e: permute(arr)) {
-				result.add(arr.get(i) + e);
-			}
-		}
-		return (ArrayList<String>) result;
-	}
-	
-	public void permute(String[] arr, int n, int index, String str, int count, double amount) {
-		if(str.length() >= n) {
-			set.add(str);
-			str = "";
-			index = set.size() % arr.length;
-			count += 1;
-		}
-		if(count < amount) {
-			if(index >= arr.length) {
-				index = 0;
-			}
-			str += arr[index];
-			permute(arr, n, index, str, count, amount);
+		// else
+		for(int i = 0; i < set.length; i++) {
+			String pre = str + set[i];
+			permute(set, length - 1, pre, arr);
 		}
 	}
+	
 }
