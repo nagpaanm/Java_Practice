@@ -1,25 +1,17 @@
 package houseRober3;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Solution {
-	   public int rob(TreeNode root) {
-	        List<Integer> arr = new ArrayList<Integer>();
-	        dfs(root, arr);
-	        for(int i = 0; i < arr.size(); i++){
-	            System.out.print(arr.get(i) + ",");
-	        }
-	        return 0;
-	    }
-	    
-	    public void dfs(TreeNode root, List<Integer> arr){
-	        if(root == null){
-	            arr.add(-1);
-	            return;
-	        }
-	        arr.add(root.val);
-	        dfs(root.left, arr);
-	        dfs(root.right, arr);
-	    }
+	public int rob(TreeNode root) {
+        if(root == null){
+           return 0;
+        }
+        int val = 0;
+        if(root.left != null){
+            val += rob(root.left.left) + rob(root.left.right);
+        }
+        if(root.right != null){
+            val += rob(root.right.left) + rob(root.right.right);
+        }
+        return Math.max(val + root.val, rob(root.left) + rob(root.right));
+    }
 }
