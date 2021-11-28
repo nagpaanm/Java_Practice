@@ -22,9 +22,9 @@ public class Solution {
 	// dynammic programming approach. O(n) runtime.
 	
 	
-	 public int rob(TreeNode root) {
+	public int rob(TreeNode root) {
 	        return robSub(root, new HashMap<TreeNode, Integer>());
-	    }
+	}
 	    
     public int robSub(TreeNode root, Map<TreeNode, Integer> map) {
         if(root == null){
