@@ -9,23 +9,23 @@ import java.util.Map;
 import java.util.Set;
 
 public class Solution {
-	public int beautySum(String s) {
-        List<Integer> total = new ArrayList<Integer>();
-        total.add(0);
+    public int beautySum(String s) {
+        int total = 0;
         for(int i = 0; i < s.length(); i++){
-            formBeauty(s.substring(i, s.length()), "", 0, total);
+            total = formBeauty(s.substring(i, s.length()), "", 0, total);
         }
-        return total.get(0);
+        return total;
     }
     
-    public void formBeauty(String s, String pre, int index, List<Integer> total){
+    public int formBeauty(String s, String pre, int index, int total){
         if(pre.length() > 2){
-            total.add(0, total.get(0) + calcBeauty(pre));
+            total += calcBeauty(pre);
         }
         if(index == s.length()){
-            return;
+            return total;
         }
-        formBeauty(s, pre + String.valueOf(s.charAt(index)), index + 1, total);
+        total = formBeauty(s, pre + String.valueOf(s.charAt(index)), index + 1, total);
+        return total;
     }
     
     public int calcBeauty(String s){
