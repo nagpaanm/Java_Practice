@@ -1,43 +1,45 @@
 package beautyStrings;
 
-import java.util.ArrayList;
-import java.util.Collection;
+/*
+ * The beauty of a string is the difference in frequencies between the most 
+ * frequent and least frequent characters.
+ * For example, the beauty of "abaacc" is 3 - 1 = 2.
+ * Given a string s, return the sum of beauty of all of its substrings.
+ * 
+ * 
+ * E.g.
+ * 
+ * Input: s = "aabcb"
+ * Output: 5
+ * Explanation: The substrings with non-zero beauty are 
+ * ["aab","aabc","aabcb","abcb","bcb"], each with beauty equal to 1.
+ */
+
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Solution {
-    public int beautySum(String s) {
+	public int beautySum(String s) {
         int total = 0;
+        // O(n^2)
         for(int i = 0; i < s.length(); i++){
-            total = formBeauty(s.substring(i, s.length()), "", 0, total);
+            Map<Character, Integer> map = new HashMap<Character, Integer>();
+            for(int j = i; j < s.length(); j++){
+                char c = s.charAt(j);
+        	    if(map.containsKey(c)){
+        		    map.put(c, map.get(c) + 1);
+        	    }else {
+                    map.put(c, 1);
+        	    }
+                total += calcBeauty(map);
+            }
         }
+
         return total;
     }
     
-    public int formBeauty(String s, String pre, int index, int total){
-        if(pre.length() > 2){
-            total += calcBeauty(pre);
-        }
-        if(index == s.length()){
-            return total;
-        }
-        total = formBeauty(s, pre + String.valueOf(s.charAt(index)), index + 1, total);
-        return total;
-    }
-    
-    public int calcBeauty(String s){
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
-        for(int i = 0; i < s.length(); i ++){
-        	if(map.containsKey(s.charAt(i))){
-        		map.put(s.charAt(i), map.get(s.charAt(i)) + 1);
-        	}else {
-                map.put(s.charAt(i), 1);
-        	}
-        }
-        int min = s.length();
+    public int calcBeauty(Map<Character, Integer> map){
+        int min = 500; // given in the constraints
         int max = 1;
         for(int i: map.values()) {
         	if(i > max) {
