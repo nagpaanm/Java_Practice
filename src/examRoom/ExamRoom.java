@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// O(logn) runtime
 class ExamRoom {
     List<Integer> arr = new ArrayList<Integer>();
     int length;
