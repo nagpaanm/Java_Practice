@@ -5,16 +5,16 @@ public class Solution {
         if(nums.length == 1){
             return 0;
         }
-        return jumpCount(nums, 0);
+        return jumpCount(nums, 0, nums[0]);
     }
     
-    public int jumpCount(int[] nums, int index){
-        if(index >= nums.length - 1){
+    public int jumpCount(int[] nums, int index, int num){
+        //System.out.println(index + num + " " + index);
+        if(index + num >= nums.length - 1){
             return 1;
         }
-        int num = nums[index];
         if(num >= 1){
-            return Math.min(1 + jumpCount(nums, index + nums[index]), 1 + jumpCount(nums, index + nums[index] - 1));
+            return Math.min(1 + jumpCount(nums, index + nums[index], nums[index]), 1 + jumpCount(nums, index + nums[index] - 1, nums[index] - 1));
         }
         return 1000;
     }
