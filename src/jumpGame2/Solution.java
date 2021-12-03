@@ -5,17 +5,23 @@ public class Solution {
         if(nums.length == 1){
             return 0;
         }
-        return jumpCount(nums, 0, nums[0]);
+        return minimumJumps(nums, 0, nums.length - 1);
     }
     
-    public int jumpCount(int[] nums, int index, int num){
-        //System.out.println(index + num + " " + index);
-        if(nums[index] + index >= nums.length - 1){
-            return 1;
+    public int minimumJumps(int arr[], int index, int length){
+        if(index == length){
+            return 0;
         }
-        if(num >= 1){
-            return Math.min(1 + jumpCount(nums, index + nums[index], nums[index]), 1 + jumpCount(nums, index + nums[index] - 1, nums[index] - 1));
+        if(arr[index] == 0){
+            return Integer.MAX_VALUE;
         }
-        return 100000;
+        int min = Integer.MAX_VALUE;
+        for(int i = index + 1; i <= length && i <= index + arr[index]; i++){
+            int jumps = minimumJumps(arr, i, length);
+            if(jumps != Integer.MAX_VALUE && jumps + 1 < min){
+                min = jumps + 1;
+            }
+        }
+        return min;
     }
 }
