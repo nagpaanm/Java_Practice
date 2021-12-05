@@ -10,8 +10,6 @@ Notice that you may not slant the container.
  */
 
 
-
-
 //using 2 pointers
 public class Solution {
     public int maxArea(int[] height) {
