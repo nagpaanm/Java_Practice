@@ -12,14 +12,14 @@ public class Solution {
         String s = words[right];
         while(right > 0){
             if(left == right){
-                if(s.length() == 0){
+                if(s.length() <= 0){
                     arr.add(words[right]);
                 }
                 left = 0;
                 right--;
                 s = words[right];
             }
-            s = s.replace(words[left], "");
+            //s = s.replace(words[left], "");
             System.out.println(s);
             left++;
         }
