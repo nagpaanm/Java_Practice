@@ -9,23 +9,18 @@ public class Solution {
         
         int left = 0;
         int right = words.length - 1;
-        int tmpCount = 0;
+        String s = words[right];
         while(right > 0){
-            if(tmpCount >= 2){
-                arr.add(words[right]);
-                tmpCount = 0;
-                left = 0;
-                right--;
-            }
-            
             if(left == right){
+                if(s.length() == 0){
+                    arr.add(words[right]);
+                }
                 left = 0;
                 right--;
-                tmpCount = 0;
+                s = words[right];
             }
-            if(words[right].contains(words[left])){
-                tmpCount++;
-            }
+            s = s.replace(words[left], "");
+            System.out.println(s);
             left++;
         }
         
