@@ -31,17 +31,16 @@ public class Solution {
         return arr;
     }
     
-    public boolean recurse(List<String> temp, String word, int index){
-        if(word.length() == 0){
-            return true;
-        }
-        boolean exp = false;
-        for(int i = index; i < temp.size(); i++){
-            String alt = word.replace(temp.get(i), "");
-            System.out.println(alt);
-            exp = recurse(temp, alt, index + 1);
-        }
-        
-        return exp;
-    }
+	public void permute(List<String> arr, List<String> temp) {
+		if(temp.size() == arr.size()) {
+			return;
+		}
+		for(int i = 0; i < arr.size(); i++) {
+			if(!temp.contains(arr.get(i))) {
+				temp.add(arr.get(i));
+				permute(arr, temp);
+				temp.remove(temp.size() - 1);
+			}
+		}
+	}
 }

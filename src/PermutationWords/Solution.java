@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Solution {
 
-	public void permute(List<String> arr, List<String> temp) {
+	public void permute(List<String> arr, List<List<String>> temp) {
 		if(temp.size() == arr.size()) {
 			for(int i = 0; i < temp.size(); i++){
 				System.out.print(temp.get(i));
