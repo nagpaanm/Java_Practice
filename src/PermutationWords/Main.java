@@ -12,7 +12,7 @@ public class Main {
 		arr.add("cat");
 		arr.add("cats");
 		Solution sol = new Solution();
-		sol.permute(arr);
+		sol.permute(arr, new ArrayList<String>());
 	}
 
 }
