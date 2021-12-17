@@ -17,15 +17,16 @@ flipping process.
 public class Solution {
 	public int numTimesAllBlue(int[] flips) {
         int total = 0;
-        int[] binArray = new int[flips.length];
+        //int[] binArray = new int[flips.length];
         int max = 0;
-        
-        //O(n)
         for(int i = 0; i < flips.length; i++){
             max = Math.max(max, flips[i]);
+            if(max == i + 1){
+                total++;
+            }
+            /*
             binArray[flips[i] - 1] = 1;
             int counter = 0;
-            //O(n)
             for(int j = 0; j <= i; j++){
                 if(binArray[j] == 1){
                     counter++;
@@ -37,6 +38,7 @@ public class Solution {
             if(counter == max && counter != 0){
                 total++;
             }
+            */
         }
         
         return total;
