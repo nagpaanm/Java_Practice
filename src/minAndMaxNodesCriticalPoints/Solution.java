@@ -17,14 +17,22 @@ public class Solution {
             return sol;
         }
         int index = 1;
+        int minD = 100000;
+        
         //O(n)
         while(last != null){
             // local maxima
             if(mid.val > first.val && mid.val > last.val){
+                if(arr.size() > 0){
+                    minD = Math.min(minD, index - arr.get(arr.size() - 1));
+                }
                 arr.add(index);
             }
             // local minima
             else if(mid.val < first.val && mid.val < last.val){
+                if(arr.size() > 0){
+                    minD = Math.min(minD, index - arr.get(arr.size() - 1));
+                }
                 arr.add(index);
             }
             first = first.next;
@@ -38,21 +46,8 @@ public class Solution {
         }
         
         int maxD = arr.get(arr.size() - 1) - arr.get(0);
-        int minD = getMinD(arr);
         sol[0] = minD;
         sol[1] = maxD;
         return sol;
-    }
-    
-    // O(n)
-    public int getMinD(List<Integer> arr){
-        int minD = 100000;
-        for(int i = 0; i < arr.size() - 1; i++){
-            if(arr.get(i + 1) - arr.get(i) < minD){
-                minD = arr.get(i + 1) - arr.get(i);
-            }
-        }
-        
-        return minD;
     }
 }
