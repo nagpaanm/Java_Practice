@@ -2,33 +2,27 @@ package minimumChangesToMakeAltBinaryString;
 
 public class Solution {
 	public int minOperations(String s) {
-        String newString = "";
-        int counter = 0;
+        int counter1 = 0; //start with 0
+        int counter2 = 0; //start with 1
+    
         for(int i = 0; i < s.length(); i++){
-            if(newString.length() == 0){
-                newString += String.valueOf(s.charAt(i));
-            }
-            else{
-                if(String.valueOf(s.charAt(i)).equals("1")){
-                    if(String.valueOf(newString.charAt(i - 1)).equals("1")){
-                        newString += "0";
-                        counter++;
-                    }
-                    else{
-                        newString += "1";
-                    }
+            if(i % 2 == 0){
+                if(!String.valueOf(s.charAt(i)).equals("0")){
+                    counter1++;
                 }
-                else if(String.valueOf(s.charAt(i)).equals("0")){
-                    if(String.valueOf(newString.charAt(i - 1)).equals("0")){
-                        newString += "1";
-                        counter++;
-                    }
-                    else{
-                        newString += "0";
-                    }
+                else{
+                    counter2++;
+                }
+            }else{
+                if(!String.valueOf(s.charAt(i)).equals("1")){
+                    counter1++;
+                }
+                else{
+                    counter2++;
                 }
             }
         }
-        return counter;
+        
+        return Math.min(counter1, counter2);
     }
 }
