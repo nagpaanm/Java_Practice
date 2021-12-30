@@ -2,7 +2,7 @@ package sortList;
 
 public class Solution {
 	public ListNode sortList(ListNode head) {
-        if (head == null || head.next == null)
+		if (head == null || head.next == null)
       return head;
         
     // step 1. cut the list to two halves
