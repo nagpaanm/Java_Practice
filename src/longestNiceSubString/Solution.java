@@ -17,9 +17,8 @@ public class Solution {
 	public String longestNiceSubstring(String s) {
         String solution = "";
         for(int i = 0; i < s.length() - 1; i++){
-            String temp = String.valueOf(s.charAt(i));
-            for(int j = i + 1; j < s.length(); j++){
-                temp += String.valueOf(s.charAt(j));
+            for(int j = i + 1; j <= s.length(); j++){
+                String temp = s.substring(i, j);
                 if(isNice(temp) && temp.length() > solution.length()){
                     solution = temp;
                 }
